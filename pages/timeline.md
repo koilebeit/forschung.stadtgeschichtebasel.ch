@@ -1,7 +1,7 @@
 ---
-title: Timeline
+title: Zeitachse
 layout: timeline
 permalink: /timeline.html
 ---
 
-## Collection Timeline
+## Zeitachse der Daten

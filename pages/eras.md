@@ -1,5 +1,5 @@
 ---
-title: Eras
+title: Epochen
 layout: cloud
 permalink: /eras.html
 # Default eras page is configured in "_data/theme.yml"
@@ -7,6 +7,6 @@ permalink: /eras.html
 cloud-fields: era
 ---
 
-## Browse Subjects
+## Epochen durchsuchen
 
 

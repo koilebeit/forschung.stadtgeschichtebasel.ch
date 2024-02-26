@@ -1,9 +1,9 @@
 display_name,stub,dropdown_parent
-Start,/,
-Sammlung,/browse.html,
+Sammlung,/,
 Themen,/subjects.html,
 Epochen,eras.html,
 Zeitachse,/timeline.html,
-Daten,/data.html,
+Metadaten,/data.html,
 Zenodo,https://zenodo.org/communities/stadt-geschichte-basel/,
 Bibliografie,https://www.zotero.org/groups/5004193/stadt.geschichte.basel/,
+Über,about.html,

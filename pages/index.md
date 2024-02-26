@@ -1,6 +1,7 @@
 ---
-layout: home-infographic
-title: Home
+layout: browse
+title: Sammlung
 permalink: /
 ---
 
+## Sammlung durchsuchen

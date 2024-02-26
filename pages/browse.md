@@ -1,7 +1,7 @@
 ---
-title: Browse
+title: Sammlung
 layout: browse
 permalink: /browse.html
 ---
 
-## Browse Items
+## Sammlung durchsuchen
