@@ -1,7 +1,7 @@
 ---
-title: Site Search
+title: Suche
 layout: search
-permalink: /search/
+permalink: /suche/
 ---
 
-## Full metadata search:
+## Suche über die vollständigen Metadaten:

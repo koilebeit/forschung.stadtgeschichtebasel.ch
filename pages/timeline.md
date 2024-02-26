@@ -1,7 +1,7 @@
 ---
 title: Zeitachse
 layout: timeline
-permalink: /timeline.html
+permalink: /zeitachse.html
 ---
 
 ## Zeitachse der Daten
