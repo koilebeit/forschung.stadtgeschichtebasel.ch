@@ -1,6 +1,6 @@
 ---
 title: Zeitachse
-layout: timeline
+layout: timeline_edtf
 permalink: /zeitachse.html
 ---
 
