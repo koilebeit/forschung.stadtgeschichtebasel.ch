@@ -1,7 +1,7 @@
 ---
 title: Suche
 layout: search
-permalink: /suche/
+permalink: /search/
 ---
 
 ## Suche über die vollständigen Metadaten:

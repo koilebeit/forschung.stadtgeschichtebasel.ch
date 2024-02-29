@@ -1,7 +1,7 @@
 ---
 title: Metadaten
 layout: data
-permalink: /metadaten.html
+permalink: /data.html
 ---
 
 ## Metadaten der Sammlung

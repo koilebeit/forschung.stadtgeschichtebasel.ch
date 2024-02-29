@@ -1,7 +1,7 @@
 ---
 title: Zeitachse
 layout: timeline_edtf
-permalink: /zeitachse.html
+permalink: /timeline.html
 ---
 
 ## Zeitachse der Daten
