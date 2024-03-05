@@ -1,9 +1,11 @@
 display_name,stub,dropdown_parent,external_link
-Sammlung,/,,
+Sammlung,/browse.html,,
 Themen,/subjects.html,,
-Epochen,/eras.html,,
 Zeitachse,/timeline.html,,
-Metadaten,/data.html,,
-Zenodo,https://zenodo.org/communities/stadt-geschichte-basel/,,true
+Epochen,/eras.html,,
 Bibliografie,https://www.zotero.org/groups/5004193/stadt.geschichte.basel/,,true
+Daten,,,
+Metadaten,/data.html,Daten,
+Datenarchiv,https://zenodo.org/communities/stadt-geschichte-basel/,Daten,true
+Quellcode,https://github.com/Stadt-Geschichte-Basel/forschung.stadtgeschichtebasel.ch/,Daten,true
 Über,/about.html,,
