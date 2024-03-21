@@ -29,50 +29,100 @@
 <link rel="stylesheet" href="{{ '/assets/lib/leaflet/leaflet.fullscreen.css' | relative_url }}">
 <script src="{{ '/assets/lib/leaflet/leaflet.js' | relative_url }}"></script>
 <script src="{{ '/assets/lib/leaflet/Leaflet.fullscreen.min.js' | relative_url }}"></script>
+<script src="https://cdn.jsdelivr.net/npm/leaflet-tilelayer-swiss@2.3.0/dist/Leaflet.TileLayer.Swiss.umd.js"
+          crossorigin integrity="sha384-M4p8VfZ8RG6qNiPYA3vOCApQXAlLtnJXVPdydMYPAsvvIDsWp2dqqzF2OEeWWNhy">
+  </script>
 
 <script>
-    // initial start point
-    var mapCenter = [{{ map-item.latitude | default: include.latitude }}, {{ map-item.longitude | default: include.longitude }}];
-    var mapZoom = {{ include.map-zoom | default: 10 }};
-    /* init map, set center and zoom */
-    var map = L.map('{{ map_id }}').setView(mapCenter, mapZoom);
-
-    /* add map layer options */
-    var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
-    });
-    var Esri_NatGeoWorldMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC',
-        maxZoom: 16
-    });
-    var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-        attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
-    });
-    /* add base map switcher */
-    var baseMaps = {
-        "Esri World StreetMap": Esri_WorldStreetMap,
-        "Esri National Geo": Esri_NatGeoWorldMap,
-        "Esri Imagery": Esri_WorldImagery
-    };
-    L.control.layers(baseMaps).addTo(map);
-    /* load base map */
-    {{ include.basemap | default: 'Esri_WorldImagery' }}.addTo(map);
-    /* add fullscreen control */ 
-    map.addControl(new L.Control.Fullscreen());
-
-    {% if include.objectid %}
-    /* add marker */ 
-    L.marker(mapCenter).addTo(map)
-    .bindPopup('{{ map-item.title | escape }}');{% endif %}
-
-    /* add geojson layer */
     let url = '{{ geojson | default: 'null' }}';
-    const response = fetch(url).then(response => response.json()).then(response => {
-        var layer = L.geoJSON(response, {
- onEachFeature: function (f, l) {
-   l.bindPopup('<pre>'+JSON.stringify(f.properties,null,' ').replace(/[\{\}"]/g,'')+'</pre>');
- }
-}).addTo(map);
+let geoJsonData;
+
+fetch(url)
+    .then(response => response.json())
+    .then(data => {
+        geoJsonData = data;
+        const crsValue = geoJsonData.crs.properties.name;
+        // console.log(crsValue); // Output: urn:ogc:def:crs:EPSG::2056
+        
+
+        // initial start point
+        var mapCenter = [{{ map-item.latitude | default: 0 }}, {{ map-item.longitude | default: 0 }}];
+        var mapZoom = {{ include.map-zoom | default: 10 }};
+        /* init map, set center and zoom */
+        if (crsValue === 'urn:ogc:def:crs:EPSG::2056') {
+            var map = L.map('{{ map_id }}', {
+                // Use LV95 (EPSG:2056) projection
+                crs: L.CRS.EPSG2056,
+            }).setView(mapCenter, mapZoom);
+            L.tileLayer.swiss().addTo(map);
+            /* add geojson layer */
+            // Convert GeoJSON coordinates to LatLng format
+            geoJsonData.features.forEach(feature => {
+                if (feature.geometry.type === 'Point') {
+                    const coords = feature.geometry.coordinates;
+                    const latLng = L.CRS.EPSG2056.unproject(L.point(coords));
+                    feature.geometry.coordinates = [latLng.lat, latLng.lng];
+                }
+            });
+            const layer_lv95 = L.geoJSON(geoJsonData, {
+                onEachFeature: function (f, l) {
+                    l.bindPopup('<pre>'+JSON.stringify(f.properties,null,' ').replace(/[\{\}"]/g,'')+'</pre>');
+                }
+            }).addTo(map);
+            // Fit map to GeoJSON layer bounds
+            map.fitBounds(layer_lv95.getBounds());
+
+
+            
+        }
+        else {
+            var map = L.map('{{ map_id }}').setView(mapCenter, mapZoom);
+
+            /* add map layer options */
+            var Esri_WorldStreetMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri &mdash; Source: Esri, DeLorme, NAVTEQ, USGS, Intermap, iPC, NRCAN, Esri Japan, METI, Esri China (Hong Kong), Esri (Thailand), TomTom, 2012'
+            });
+            var Esri_NatGeoWorldMap = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri &mdash; National Geographic, Esri, DeLorme, NAVTEQ, UNEP-WCMC, USGS, NASA, ESA, METI, NRCAN, GEBCO, NOAA, iPC',
+                maxZoom: 16
+            });
+            var Esri_WorldImagery = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
+            });
+            /* add base map switcher */
+            var baseMaps = {
+                "Esri World StreetMap": Esri_WorldStreetMap,
+                "Esri National Geo": Esri_NatGeoWorldMap,
+                "Esri Imagery": Esri_WorldImagery
+            };
+            L.control.layers(baseMaps).addTo(map);
+            /* load base map */
+            {{ include.basemap | default: 'Esri_WorldImagery' }}.addTo(map);
+        
+            /* add fullscreen control */ 
+            map.addControl(new L.Control.Fullscreen());
+
+            {% if include.objectid %}
+            /* add marker */ 
+            L.marker(mapCenter).addTo(map)
+                .bindPopup('{{ map-item.title | escape }}');
+            {% endif %}
+        
+            /* add geojson layer */
+            const layer = L.geoJSON(geoJsonData, {
+                onEachFeature: function (f, l) {
+                    l.bindPopup('<pre>'+JSON.stringify(f.properties,null,' ').replace(/[\{\}"]/g,'')+'</pre>');
+                }
+            }).addTo(map);
+            // Fit map to GeoJSON layer bounds
+            map.fitBounds(layer.getBounds());
+        }
+
     })
+    .catch(error => {
+        console.error('Error fetching GeoJSON data:', error);
+    });
+
+
 
 </script>
