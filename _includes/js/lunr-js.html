@@ -27,20 +27,20 @@
         indexedData[{{ f.field | jsonify }}] = fieldValue.split(";").join(" ");
       }
       {% endfor %}
-      
+
       // Add the indexed data to the Lunr index
       this.add(Object.assign(indexedData, { id: item }));
     }
 
   });
-  
+
   /* search function */
   function lunr_search () {
     var resultdiv = document.querySelector('#lunrResults');
     var query = document.querySelector('#lunrSearchBox').value.toLowerCase();
     /* basic search that supports operators */
     // var result = idx.search(query);
-    
+
     /* Enable trailing wildcard for partial matches */
     var result = idx.query(function (q) {
       query.split(lunr.tokenizer.separator).forEach(function (term) {
