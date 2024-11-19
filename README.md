@@ -33,9 +33,10 @@ Object metadata is exposed using [Schema.org](http://schema.org) and [Open Graph
 For more information on CollectionBuilder, visit the [Docs](https://collectionbuilder.github.io/cb-docs/).
 
 Stadt.Geschichte.Basel has extended CollectionBuilder with some features that are not (yet) included in the CollectionBuilder project. These are the following extensions:
+
 - **List visualization**: Instead of in a cloud, fields can be visualized in a list, including their frequencies.
 - **EDTF-Timeline Page**: Based on the existing timeline, a timeline was created that supports year numbers in Extended Time Format ([EDTF](https://www.loc.gov/standards/datetime/)).
-- **New Item Layout "Geodata"**: Definition of a new display_template ("geodata"). An interactive map was created as a new item view to display geojson-files.
+- **New Item Layout "Geodata"**: Definition of a new display_template ("geodata"). An interactive map was created as a new item view to display geojson files.
 - **New Item Layout "Table"**: csv files are displayed as a table and can be viewed and searched directly on the item page.
 - **Multi-language support for theming**: So far german and spanish are supported. English is the default language.
 - **Trigger warning**: To draw attention to possible sensitive contents of the collection, a trigger warning has been added, which appears once when the page is visited.
