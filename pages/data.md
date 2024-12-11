@@ -29,22 +29,26 @@ Das [Extended Date Time Format (EDTF)](https://www.loc.gov/standards/datetime/) 
    Ebenfalls möglich sind Teilangaben wie `2024-12` (Dezember 2024) oder nur das Jahr `2024`.
 2. **Ungewisse und ungefähre Daten**  
    Mit speziellen Zeichen lässt sich angeben, wenn ein Datum nur ungefähr oder unsicher ist:
+
    - `?` kennzeichnet Unsicherheit (z. B. `1960?` könnte bedeuten, dass es etwa 1960 war, aber nicht sicher ist).
    - `~` steht für ungefähre oder in etwa zutreffende Angaben (z. B. `1960~` bedeutet „ungefähr im Jahr 1960“).
    - `%` steht für unsicher und ungefähr
 
 3. **Datumsbereiche und Intervalle**  
    Man kann Zeiträume als Intervalle ausdrücken, indem man zwei Daten mit einem Schrägstrich `/` verbindet:
+
    - `1900/1950` steht für die Zeitspanne von 1900 bis 1950.
-   - Unvollständige Intervalle wie `1900/..` oder `../1950` drücken offene Zeiträume aus („seit 1900“ oder „bis 1950“).  
+   - Unvollständige Intervalle wie `1900/..` oder `../1950` drücken offene Zeiträume aus („seit 1900“ oder „bis 1950“).
    - Diese Intervalle können ebenfalls Unsicherheits- oder Ungefähr-Zeichen enthalten, um vage Zeiträume darzustellen: `1900~/1950?`.
 
 4. **Listen und Sets von Daten**  
    Man kann mehrere mögliche oder relevante Daten in einer Liste angeben:
+
    - Eine Liste wie `[1960, 1962, 1965]` bedeutet eine explizite Aufzählung von möglichen oder relevanten Daten.
 
 5. **Jahreszeiten und Quartale**  
    EDTF erlaubt die Angabe von Jahreszeiten oder Quartalen, die in manchen Zusammenhängen relevant sein können:
+
    - `1960-33` stellt beispielsweise die Angabe „Erstes Quartal des Jahres 1960“ dar.
    - Die Jahreszeiten Frühling, Sommer, Herbst und Winter sind mit den Codes `21`, `22`, `23` und `24` definiert, so kann beispielsweise „Frühling 1960“ mit `1960-21` abgebildet werden.
    - Die genauen Entsprechungen von Zeiten und Codes ist in der Spezifikation des EDTF-Standards festgelegt, um diese einheitlich anzugeben.
